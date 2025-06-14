@@ -1,40 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kwalix OS – Under Construction</title>
-  <style>
-    body {
-      margin: 0;
-      background: #0f0f0f;
-      color: #f4f4f4;
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-    }
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-    p {
-      font-size: 1.2rem;
-      color: #aaa;
-    }
-    .icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kwalix OS - Under Construction</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔧</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'void': '#000000',
+                        'aether': '#11FDD7',
+                        'heading': '#D1D5DB',
+                        'subtext': '#9CA3AF'
+                    },
+                    fontFamily: {
+                        'mono': ['JetBrains Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+        
+        /* Starfield Background */
+        .starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: #000000;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        .star:nth-child(odd) {
+            animation-delay: 1s;
+        }
+        
+        .star:nth-child(3n) {
+            animation-delay: 2s;
+        }
+        
+        .star.small {
+            width: 1px;
+            height: 1px;
+            opacity: 0.8;
+        }
+        
+        .star.medium {
+            width: 2px;
+            height: 2px;
+            opacity: 0.6;
+        }
+        
+        .star.large {
+            width: 3px;
+            height: 3px;
+            opacity: 0.4;
+        }
+        
+        .star.aether {
+            background: #11FDD7;
+            box-shadow: 0 0 6px #11FDD7;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        /* Subtle glow effect for content */
+        .content-glow {
+            text-shadow: 0 0 20px rgba(17, 253, 215, 0.1);
+        }
+        
+        /* Kraken logo animations */
+        .kraken-logo {
+            filter: drop-shadow(0 0 20px rgba(17, 253, 215, 0.3));
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes logoFloat {
+            0%, 100% { 
+                transform: translateY(0px) scale(1);
+                filter: drop-shadow(0 0 20px rgba(17, 253, 215, 0.3));
+            }
+            50% { 
+                transform: translateY(-10px) scale(1.02);
+                filter: drop-shadow(0 0 30px rgba(17, 253, 215, 0.5));
+            }
+        }
+    </style>
 </head>
-<body>
-  <div class="icon">🔧</div>
-  <h1>Kwalix OS is Under Construction</h1>
-  <p>We are building something powerful.<br>The server will be online soon.</p>
+<body class="bg-void min-h-screen flex items-center justify-center font-mono overflow-hidden">
+    <!-- Starfield Background -->
+    <div class="starfield" id="starfield"></div>
+    
+    <div class="text-center px-6 max-w-2xl mx-auto relative z-10">
+        <!-- Kraken Logo -->
+        <div class="mb-8">
+            <img src="public/kraken-transparent.png" alt="Kwalix OS Logo" class="kraken-logo w-24 h-24 md:w-32 md:h-32 mx-auto">
+        </div>
+        
+        <!-- Main Heading -->
+        <h1 class="text-heading text-2xl md:text-4xl lg:text-5xl font-semibold mb-6 leading-tight content-glow">
+            Kwalix OS is Under Construction
+        </h1>
+        
+        <!-- Subtext -->
+        <div class="text-subtext text-sm md:text-base lg:text-lg space-y-2 leading-relaxed">
+            <p>We are building something powerful.</p>
+            <p>The server will be online soon.</p>
+        </div>
+        
+        <!-- Optional accent line -->
+        <div class="mt-8 pt-8 border-t border-aether/20">
+            <div class="w-16 h-0.5 bg-aether mx-auto opacity-60"></div>
+        </div>
+    </div>
+
+    <script>
+        // Generate starfield
+        function createStarfield() {
+            const starfield = document.getElementById('starfield');
+            const numStars = 150;
+            
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Random position
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                
+                // Random size
+                const sizes = ['small', 'medium', 'large'];
+                const size = sizes[Math.floor(Math.random() * sizes.length)];
+                star.classList.add(size);
+                
+                // Occasional aether-colored stars
+                if (Math.random() < 0.1) {
+                    star.classList.add('aether');
+                }
+                
+                // Random animation delay
+                star.style.animationDelay = Math.random() * 3 + 's';
+                
+                starfield.appendChild(star);
+            }
+        }
+        
+        // Initialize starfield when page loads
+        document.addEventListener('DOMContentLoaded', createStarfield);
+    </script>
 </body>
 </html>
-
